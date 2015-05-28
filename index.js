@@ -10,7 +10,7 @@ function Xero (key, secret, rsa_key) {
     this.key = key;
     this.secret = secret;
 
-    easyxml.configure({rootElement: 'Request', manifest: true});
+    this.serializer = new easyxml({rootElement: 'Request', manifest: true});
 
     this.oa = new oauth.OAuth(null, null, key, secret, '1.0', null, "PLAINTEXT", null, { "Accept": "application/json" });
     this.oa._signatureMethod = "RSA-SHA1"
@@ -35,7 +35,7 @@ Xero.prototype.call = function (method, path, body, callback) {
 
     var xml = null;
     if (method && method !== 'GET' && body) {
-        xml = easyxml.render(body);
+        xml = this.serializer.render(body);
     }
     var process = function (err, jsonString, res) {
         if (err) {
