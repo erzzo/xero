@@ -1,3 +1,6 @@
+var moment = require('moment');
+
+
 module.exports = function (xero) {
   
   xero.Payments = {
@@ -24,7 +27,11 @@ module.exports = function (xero) {
     
     
     create: function (params, callback) {
-      xero.put('/Payments', { Payments: { Payment: params }}, function (err, json) {
+      xero.post('/Payments', { Payment: params }, function (err, json) {
+        if (params.Date) {
+          params.Date = moment(params.Date).format('YYYY-MM-DD');
+        }
+
         if (err) {
           return callback(err);
         }

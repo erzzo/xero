@@ -1,5 +1,5 @@
 {
-  "name": "xero-extended",
+  "name": "xero",
   "version": "0.0.7",
   "dependencies": {
     "oauth": "0.9.10",
