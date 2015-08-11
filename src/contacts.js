@@ -34,7 +34,17 @@ module.exports = function (xero) {
 
 				callback(null, json.Contacts[0]);
 			});
-		}
+		},
+
+		update: function (id, params, callback) {
+			xero.post('/Contacts/' + id, { Contact: params }, function (err, json) {
+				if (err) {
+					return callback(err);
+				}
+
+				callback(null, json.Contacts[0]);
+			})
+		},
 	};
 
 };
